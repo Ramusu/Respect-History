@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cwljf1yys1wfd"]
+[gd_scene format=4 uid="uid://cwljf1yys1wfd"]
 
 [ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://icon.svg" id="1_0f66n"]
 
@@ -17,5 +17,10 @@ sources/0 = SubResource("TileSetAtlasSource_2o7gk")
 [node name="Prologue Level" type="Node2D" unique_id=1764524736]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=612674156]
+tile_map_data = PackedByteArray("AAD8////AAAAAAAAAAD9////AAAAAAAAAAD+////AAAAAAAAAAD/////AAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_mn58c")
 rendering_quadrant_size = 32
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=751987530]
+position = Vector2(112, 19)
+zoom = Vector2(5, 5)
