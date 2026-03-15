@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqwdgvjw72lvm"]
 
-[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://icon.svg" id="1_emv7j"]
+[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_emv7j"]
 
 [node name="Computer" type="Node2D" unique_id=2072303069]
 
