@@ -2,7 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_mujqm"]
 
-[node name="LabMovable" type="Node2D" unique_id=741737674]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mujqm"]
+size = Vector2(32, 32)
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=1741756443]
+[node name="RigidBody2D" type="RigidBody2D" unique_id=1263805943]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1881226318]
+texture_filter = 1
 texture = ExtResource("1_mujqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2083317414]
+shape = SubResource("RectangleShape2D_mujqm")
