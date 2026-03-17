@@ -1,5 +1,6 @@
-extends Area2D
+extends RayCast2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	position.y += 150 * delta
+func _physics_process(delta: float) -> void:
+	if !is_colliding():
+		position.y += 150 * delta

@@ -28,7 +28,6 @@ physics_quadrant_size = 32
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=751987530]
 position = Vector2(-528, -176)
-zoom = Vector2(5, 5)
 
 [node name="LabMovable" parent="." unique_id=741737674 instance=ExtResource("2_2o7gk")]
 position = Vector2(-464, -176)

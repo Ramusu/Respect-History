@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://bn0uqspvqlito"]
 
+[ext_resource type="Script" uid="uid://x5y0m8vbkwg1" path="res://Movable.gd" id="1_fmxhy"]
 [ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_mujqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mujqm"]
 size = Vector2(32, 32)
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=1263805943]
+[node name="AnimatableBody2D" type="AnimatableBody2D" unique_id=1136730864]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1881226318]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=869678952]
 texture_filter = 1
 texture = ExtResource("1_mujqm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2083317414]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1201486219]
 shape = SubResource("RectangleShape2D_mujqm")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1302693157]
+target_position = Vector2(0, 32)
+script = ExtResource("1_fmxhy")
