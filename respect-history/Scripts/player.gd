@@ -5,11 +5,18 @@ var last_direction := Vector2(1,0) # direction a player faces when standing stil
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction = Vector2.ZERO
+	var x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	var y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	
+	if x != 0:
+		direction = Vector2(x, 0)
+	elif y != 0:
+		direction = Vector2(0, y)
+		
 	velocity = direction*speed
 	move_and_slide()
 	
