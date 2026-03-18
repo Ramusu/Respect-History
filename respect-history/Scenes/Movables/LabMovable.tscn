@@ -6,15 +6,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mujqm"]
 size = Vector2(32, 32)
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" unique_id=1136730864]
+[node name="Area2D" type="Area2D" unique_id=30806492]
+script = ExtResource("1_fmxhy")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=869678952]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=423739111]
 texture_filter = 1
 texture = ExtResource("1_mujqm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1201486219]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=920133021]
 shape = SubResource("RectangleShape2D_mujqm")
-
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1302693157]
-target_position = Vector2(0, 32)
-script = ExtResource("1_fmxhy")

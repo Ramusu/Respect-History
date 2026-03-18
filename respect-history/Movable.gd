@@ -1,6 +1,8 @@
-extends RayCast2D
+extends Area2D
+
+@export var speed = 500
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if !is_colliding():
-		position.y += 150 * delta
+	if collision_mask == 1:
+		position.y = speed * delta
