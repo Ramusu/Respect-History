@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://cq3l6rui1b8mf"]
-
-[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://icon.svg" id="1_5arvi"]
-
-[node name="Dr_Chronos(mc)" type="Node2D" unique_id=1614693019]
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1077235560]
-texture = ExtResource("1_5arvi")

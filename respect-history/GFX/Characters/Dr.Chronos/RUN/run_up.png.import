@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o3yi0xgc3xlb"
-path="res://.godot/imported/run_left.png-45971318fac3bb9ac424aca3a3435db1.ctex"
+uid="uid://bwky8koefs8q"
+path="res://.godot/imported/run_up.png-0677a13d406e47661e1613a0ac98f4df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/RUN/run_left.png"
-dest_files=["res://.godot/imported/run_left.png-45971318fac3bb9ac424aca3a3435db1.ctex"]
+source_file="res://GFX/Characters/Dr.Chronos/RUN/run_up.png"
+dest_files=["res://.godot/imported/run_up.png-0677a13d406e47661e1613a0ac98f4df.ctex"]
 
 [params]
 
