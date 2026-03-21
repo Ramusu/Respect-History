@@ -501,6 +501,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fiqgd"]
+size = Vector2(30, 30)
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=643783559 node_paths=PackedStringArray("animated_sprite_2d")]
 script = ExtResource("1_gs2pr")
 animated_sprite_2d = NodePath("AnimatedSprite2D")
@@ -511,3 +514,7 @@ animation = &"walk_up"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
 zoom = Vector2(5, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=348592923]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_fiqgd")

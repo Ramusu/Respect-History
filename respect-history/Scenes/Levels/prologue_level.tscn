@@ -27,8 +27,8 @@ tile_set = SubResource("TileSet_mn58c")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
-[node name="CharacterBody2D" parent="." unique_id=643783559 instance=ExtResource("2_2o7gk")]
-position = Vector2(-500, -178)
+[node name="Dr_ Chronos" parent="." unique_id=643783559 instance=ExtResource("2_2o7gk")]
+position = Vector2(-496, -177)
 
-[node name="CharacterBody2D2" parent="." unique_id=294715035 instance=ExtResource("3_mn58c")]
+[node name="Lab_Movable" parent="." unique_id=294715035 instance=ExtResource("3_mn58c")]
 position = Vector2(-464, -176)
