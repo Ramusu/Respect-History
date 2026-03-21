@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cwljf1yys1wfd"]
 
-[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_0f66n"]
-[ext_resource type="PackedScene" uid="uid://bn0uqspvqlito" path="res://Scenes/Movables/LabMovable.tscn" id="2_2o7gk"]
+[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://icon.svg" id="1_0f66n"]
+[ext_resource type="PackedScene" uid="uid://cq3l6rui1b8mf" path="res://Scenes/Characters/Dr. Chronos (MC).tscn" id="2_2o7gk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2o7gk"]
 texture = ExtResource("1_0f66n")
@@ -26,8 +26,5 @@ tile_set = SubResource("TileSet_mn58c")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=751987530]
-position = Vector2(-528, -176)
-
-[node name="LabMovable" parent="." unique_id=741737674 instance=ExtResource("2_2o7gk")]
-position = Vector2(-464, -176)
+[node name="CharacterBody2D" parent="." unique_id=643783559 instance=ExtResource("2_2o7gk")]
+position = Vector2(-500, -178)
