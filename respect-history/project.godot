@@ -13,7 +13,7 @@ config_version=5
 config/name="Respect History"
 run/main_scene="uid://cwljf1yys1wfd"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://GFX/Tile sets/icon.svg"
 
 [dotnet]
 

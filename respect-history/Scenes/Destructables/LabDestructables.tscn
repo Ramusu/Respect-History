@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://wfh577xujg62"]
 
-[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://icon.svg" id="1_hvidw"]
+[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_hvidw"]
 
 [node name="LabDestructables" type="Node2D" unique_id=1790243081]
 
