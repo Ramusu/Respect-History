@@ -9,9 +9,6 @@ texture = ExtResource("1_0f66n")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_mn58c"]
 tile_size = Vector2i(32, 32)
@@ -28,7 +25,7 @@ rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
 [node name="Dr_ Chronos" parent="." unique_id=643783559 instance=ExtResource("2_2o7gk")]
-position = Vector2(-496, -177)
+position = Vector2(-496, -176)
 
 [node name="Lab_Movable" parent="." unique_id=294715035 instance=ExtResource("3_mn58c")]
 position = Vector2(-464, -176)
