@@ -1,23 +1,16 @@
 extends CharacterBody2D
 
 @export var animated_sprite_2d: AnimatedSprite2D
-@export var camera: Camera2D
 
 var speed = 100 # movement speed
 var last_direction := Vector2(1,0) # direction a player faces when standing still
-var intro = true # a flag for intro sequence on the beggining of a level
-var intro_target = -500 # x-axis end position for intro
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	camera.target = self
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if intro:
-		intro_move(delta)
-		return # blocks controls
-	
 	var direction = Vector2.ZERO
 	var x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
@@ -35,14 +28,6 @@ func _physics_process(delta: float) -> void:
 		animation_move(direction)
 	else:
 		animation_idle(last_direction)
-
-func intro_move(delta):
-	velocity.x = speed
-	move_and_slide()
-	if global_position.x >= intro_target:
-		global_position.x = intro_target
-		velocity = Vector2.ZERO
-		intro = false
 
 func play_animation(name: String):
 	if animated_sprite_2d.animation != name:
