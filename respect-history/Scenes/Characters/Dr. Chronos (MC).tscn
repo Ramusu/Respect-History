@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cq3l6rui1b8mf"]
 
-[ext_resource type="Script" uid="uid://bnxsdfito8mhw" path="res://Scripts/player_tile_based.gd" id="1_fiqgd"]
+[ext_resource type="Script" path="res://Scripts/player_tile_based.gd" id="1_fiqgd"]
 [ext_resource type="Texture2D" uid="uid://kftmdsnye4p1" path="res://GFX/Characters/Dr.Chronos/IDLE/idle_down.png" id="2_28n2w"]
 [ext_resource type="Texture2D" uid="uid://dbl253oqyt7qs" path="res://GFX/Characters/Dr.Chronos/IDLE/idle_left.png" id="3_vwx8q"]
 [ext_resource type="Texture2D" uid="uid://cc6xyga0ar5aw" path="res://GFX/Characters/Dr.Chronos/IDLE/idle_right.png" id="4_7dnvc"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://o3yi0xgc3xlb" path="res://GFX/Characters/Dr.Chronos/RUN/run_left.png" id="7_xvgbj"]
 [ext_resource type="Texture2D" uid="uid://does70yn5j3q3" path="res://GFX/Characters/Dr.Chronos/RUN/run_right.png" id="8_ujd1k"]
 [ext_resource type="Texture2D" uid="uid://bwky8koefs8q" path="res://GFX/Characters/Dr.Chronos/RUN/run_up.png" id="9_mc7uk"]
-[ext_resource type="Script" uid="uid://bleooxhnncxbs" path="res://Scripts/animated_sprite_2d.gd" id="10_roddx"]
+[ext_resource type="Script" path="res://Scripts/animated_sprite_2d.gd" id="10_roddx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dig5o"]
 atlas = ExtResource("2_28n2w")
@@ -516,9 +516,6 @@ script = ExtResource("10_roddx")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
 zoom = Vector2(4, 4)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
-zoom = Vector2(5, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=348592923]
 shape = SubResource("RectangleShape2D_fiqgd")
