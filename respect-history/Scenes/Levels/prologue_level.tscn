@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_0f66n"]
 [ext_resource type="PackedScene" uid="uid://cq3l6rui1b8mf" path="res://Scenes/Characters/Dr. Chronos (MC).tscn" id="2_2o7gk"]
 [ext_resource type="PackedScene" uid="uid://bn0uqspvqlito" path="res://Scenes/Movables/LabMovable.tscn" id="3_mn58c"]
+[ext_resource type="Script" uid="uid://bap3g8hea3o5m" path="res://Scripts/CameraControl.gd" id="4_invoy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2o7gk"]
 texture = ExtResource("1_0f66n")
@@ -24,8 +25,16 @@ tile_set = SubResource("TileSet_mn58c")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
-[node name="Dr_ Chronos" parent="." unique_id=643783559 instance=ExtResource("2_2o7gk")]
+
+[node name="Dr_ Chronos" parent="." unique_id=643783559 node_paths=PackedStringArray("camera") instance=ExtResource("2_2o7gk")]
 position = Vector2(-496, -176)
+camera = NodePath("../Camera2D")
+
 
 [node name="Lab_Movable" parent="." unique_id=294715035 instance=ExtResource("3_mn58c")]
 position = Vector2(-464, -176)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1762978725]
+position = Vector2(-500, -175)
+zoom = Vector2(3.01, 3.01)
+script = ExtResource("4_invoy")
