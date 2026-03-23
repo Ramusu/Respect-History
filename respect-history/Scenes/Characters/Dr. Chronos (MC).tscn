@@ -515,7 +515,7 @@ animation = &"idle_right"
 script = ExtResource("10_roddx")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=348592923]
 shape = SubResource("RectangleShape2D_fiqgd")
