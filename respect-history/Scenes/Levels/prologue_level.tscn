@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d1ovq7dk4y6n0"]
 
 [ext_resource type="Script" uid="uid://dfgih5xm1dhry" path="res://Scenes/Levels/prologue_level.gd" id="1_yf3p6"]
-[ext_resource type="Script" uid="uid://ck0uxvrwbrflc" path="res://Scripts/wall_tile_config.gd.gd" id="2_rpv4c"]
+[ext_resource type="Script" uid="uid://ck0uxvrwbrflc" path="res://Other/wall_tile_config.gd.gd" id="2_rpv4c"]
 [ext_resource type="Texture2D" uid="uid://drkoi8p4seh8x" path="res://GFX/Tile sets/solid.png" id="3_hrvk6"]
 [ext_resource type="Texture2D" uid="uid://dly5tuijkjb8l" path="res://GFX/Tile sets/walkable.png" id="4_17k2i"]
 [ext_resource type="Texture2D" uid="uid://cs3yn0djfi4nc" path="res://GFX/Tile sets/platform1.png" id="5_alyxl"]
@@ -442,6 +442,7 @@ path_layer = NodePath("WalkableLayer")
 wall_layer = NodePath("AutoWallsLayer")
 background_color = Color(0.21176471, 0.27058825, 0.30980393, 1)
 level_seed = "3141588464"
+wall_offset = 6
 wall_source_id = 1
 wall_tiles = Array[ExtResource("2_rpv4c")]([SubResource("Resource_x4x4f"), SubResource("Resource_k8g1k"), SubResource("Resource_l7ek2"), SubResource("Resource_7rivk"), SubResource("Resource_hyk2w"), SubResource("Resource_mvu5i"), SubResource("Resource_xxcax")])
 
