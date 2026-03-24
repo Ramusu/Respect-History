@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://qevordclxpjw"]
-
-[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_t12hv"]
-
-[node name="LabCheckpoint" type="Node2D" unique_id=1356111122]
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1354068130]
-texture = ExtResource("1_t12hv")
