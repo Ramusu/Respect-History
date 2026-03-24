@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://wfh577xujg62"]
-
-[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://GFX/Tile sets/icon.svg" id="1_hvidw"]
-
-[node name="LabDestructables" type="Node2D" unique_id=1790243081]
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=285758554]
-texture = ExtResource("1_hvidw")
