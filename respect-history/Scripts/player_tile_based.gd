@@ -21,10 +21,17 @@ var current_direction: Vector2 = Vector2.ZERO
 var last_emitted_dir: Vector2 = Vector2.ZERO
 var last_emitted_moving: bool = false
 
+const TURN_DELAY: float = 0.03
+var turn_delay_timer: float = 0.0
+
 func _ready():
 	target_position = global_position
 
 func _physics_process(delta: float) -> void:
+	if turn_delay_timer > 0.0:
+		turn_delay_timer -= delta
+		return
+	
 	handle_input()
 	move_to_target(delta)
 
@@ -50,7 +57,11 @@ func move(direction: Vector2) -> void:
 		update_moving_signal(current_direction, false)
 		return
 	
-	current_direction = direction
+	if direction != current_direction:
+		current_direction = direction
+		update_moving_signal(current_direction, false)
+		turn_delay_timer = TURN_DELAY
+		return
 	
 	if is_moving:
 		return
