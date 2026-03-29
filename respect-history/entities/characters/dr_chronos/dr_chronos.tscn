@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bnxsdfito8mhw" path="res://entities/characters/dr_chronos/player_tile_based.gd" id="1_fiqgd"]
 [ext_resource type="Texture2D" uid="uid://kftmdsnye4p1" path="res://entities/characters/dr_chronos/visuals/idle/idle_down.png" id="2_28n2w"]
+[ext_resource type="Texture2D" uid="uid://dpkiccfx25dju" path="res://entities/characters/dr_chronos/visuals/Skull 0011.png" id="2_cdvi1"]
 [ext_resource type="Texture2D" uid="uid://dbl253oqyt7qs" path="res://entities/characters/dr_chronos/visuals/idle/idle_left.png" id="3_vwx8q"]
 [ext_resource type="Texture2D" uid="uid://cc6xyga0ar5aw" path="res://entities/characters/dr_chronos/visuals/idle/idle_right.png" id="4_7dnvc"]
 [ext_resource type="Texture2D" uid="uid://ge33itupy0xj" path="res://entities/characters/dr_chronos/visuals/idle/idle_up.png" id="5_3l8kd"]
@@ -272,6 +273,14 @@ region = Rect2(672, 0, 96, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gs2pr"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cdvi1")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dig5o")
