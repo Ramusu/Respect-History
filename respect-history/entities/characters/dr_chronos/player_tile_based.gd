@@ -1,11 +1,14 @@
 extends Node2D
 
 signal moving(dir: Vector2, is_moving: bool)
+signal intro_complete
 
 @onready var ray_cast_up: RayCast2D = $Raycast/RayCastUp
 @onready var ray_cast_down: RayCast2D = $Raycast/RayCastDown
 @onready var ray_cast_left: RayCast2D = $Raycast/RayCastLeft
 @onready var ray_cast_right: RayCast2D = $Raycast/RayCastRight
+
+@export var target_camera: Camera2D
 
 @export var tiles_per_second: int = 4
 const tile_size: int = 32
@@ -24,16 +27,42 @@ var last_emitted_moving: bool = false
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
+var intro_position: Vector2
+var intro_complete_flag: bool = true # false
+
 func _ready():
 	target_position = global_position
+	intro_position = global_position - Vector2(64, 0) # WARNING tinker with this
 
 func _physics_process(delta: float) -> void:
 	if turn_delay_timer > 0.0:
 		turn_delay_timer -= delta
 		return
 	
-	handle_input()
-	move_to_target(delta)
+	if not intro_complete_flag:
+		handle_intro_movement(delta)
+	else:
+		handle_input()
+		move_to_target(delta)
+
+func handle_intro_movement(delta: float): # WARNING this and bottom func can be merged?
+	if not is_moving and global_position.distance_to(intro_position) > 1:
+			move_to_intro_target(delta)
+
+func move_to_intro_target(delta: float):
+	target_position = intro_position
+	is_moving = true
+	update_moving_signal(current_direction, true)
+	
+	# WARNING fix movement 
+	global_position = global_position.move_toward(target_position, move_speed*delta)
+	
+	if global_position.distance_to(target_position) < 1:
+		global_position = target_position
+		is_moving = false
+		intro_complete_flag = true
+		emit_signal("intro_complete")
+		handle_input()
 
 func handle_input():
 	if is_moving:

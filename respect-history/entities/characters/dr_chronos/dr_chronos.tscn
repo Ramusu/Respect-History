@@ -519,9 +519,6 @@ sprite_frames = SubResource("SpriteFrames_gs2pr")
 animation = &"idle_right"
 script = ExtResource("10_roddx")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
-zoom = Vector2(3, 3)
-
 [node name="Raycast" type="Node2D" parent="." unique_id=729798008]
 
 [node name="RayCastUp" type="RayCast2D" parent="Raycast" unique_id=585272055]
