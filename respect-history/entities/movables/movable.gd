@@ -71,6 +71,7 @@ func _physics_process(delta: float) -> void:
 				target_position = global_position + (Vector2.DOWN * Global.TILE_SIZE)
 			else:
 				falling = false
+				Signals.movable_land.emit()
 		return
 
 	var has_wall_down: bool = check_cell(Vector2.DOWN, wall_layer)
