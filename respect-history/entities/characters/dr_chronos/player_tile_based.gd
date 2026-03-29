@@ -8,11 +8,10 @@ signal moving(dir: Vector2, is_moving: bool)
 @onready var ray_cast_right: RayCast2D = $Raycast/RayCastRight
 
 @export var tiles_per_second: int = 4
-const tile_size: int = 32
 
 var move_speed: float:
 	get:
-		return tile_size * tiles_per_second
+		return Global.TILE_SIZE * tiles_per_second
 
 var target_position: Vector2
 var is_moving: bool = false
@@ -21,10 +20,13 @@ var current_direction: Vector2 = Vector2.ZERO
 var last_emitted_dir: Vector2 = Vector2.ZERO
 var last_emitted_moving: bool = false
 
+var is_dead: bool = false
+
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
 func _ready():
+	add_to_group('player')
 	target_position = global_position
 
 func _physics_process(delta: float) -> void:
@@ -36,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	move_to_target(delta)
 
 func handle_input():
-	if is_moving:
+	if is_moving or is_dead:
 		return
 	
 	var direction: Vector2 = Vector2.ZERO
@@ -78,7 +80,7 @@ func move(direction: Vector2) -> void:
 			can_move = not ray_cast_right.is_colliding()
 	
 	if can_move:
-		target_position = global_position + direction * tile_size
+		target_position = global_position + direction * Global.TILE_SIZE
 		is_moving = true
 		update_moving_signal(current_direction, true)
 	else:
@@ -100,3 +102,7 @@ func update_moving_signal(dir: Vector2, state: bool) -> void:
 		moving.emit(dir, state)
 		last_emitted_dir = dir
 		last_emitted_moving = state
+
+func die() -> void:
+	is_dead = true
+	print("dead")

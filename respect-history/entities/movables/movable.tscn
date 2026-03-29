@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dovajluv06huy"]
+
+[ext_resource type="Script" uid="uid://d4hwtascwvlam" path="res://entities/movables/movable.gd" id="1_nsaja"]
+[ext_resource type="Texture2D" uid="uid://2as5nwgx0ljc" path="res://icon.svg" id="2_47tb1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsaja"]
+size = Vector2(16, 16)
+
+[node name="Movable" type="Node2D" unique_id=260775831]
+script = ExtResource("1_nsaja")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=285495641]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=523840907]
+shape = SubResource("RectangleShape2D_nsaja")
+
+[node name="Sprite" type="Sprite2D" parent="Area2D" unique_id=1008149683]
+texture_filter = 1
+texture = ExtResource("2_47tb1")
+
+[node name="RaycastWalls" type="Node2D" parent="." unique_id=805239818]
+
+[node name="WallRight" type="RayCast2D" parent="RaycastWalls" unique_id=943514157]
+target_position = Vector2(16, 0)
+collision_mask = 8
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="WallLeft" type="RayCast2D" parent="RaycastWalls" unique_id=379898859]
+target_position = Vector2(-16, 0)
+collision_mask = 8
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="WallDown" type="RayCast2D" parent="RaycastWalls" unique_id=267845208]
+target_position = Vector2(0, 16)
+collision_mask = 8
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="RaycastEntities" type="Node2D" parent="." unique_id=786502223]
+
+[node name="EntityRight" type="RayCast2D" parent="RaycastEntities" unique_id=449549491]
+position = Vector2(16, 0)
+target_position = Vector2(8, 0)
+collision_mask = 6
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="EntityLeft" type="RayCast2D" parent="RaycastEntities" unique_id=1416770232]
+position = Vector2(-16, 0)
+target_position = Vector2(-8, 0)
+collision_mask = 6
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="EntityDown" type="RayCast2D" parent="RaycastEntities" unique_id=1575262379]
+position = Vector2(0, 16)
+target_position = Vector2(0, 8)
+collision_mask = 6
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RaycastPlayerKill" type="Node2D" parent="." unique_id=363902291]
+
+[node name="PlayerDown" type="RayCast2D" parent="RaycastPlayerKill" unique_id=527264930]
+position = Vector2(0, 16)
+target_position = Vector2(0, 8)
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false

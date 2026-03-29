@@ -505,10 +505,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="CharacterBody2D" type="Node2D" unique_id=1430571325]
+[node name="DrChronos" type="Node2D" unique_id=1430571325 groups=["player"]]
 script = ExtResource("1_fiqgd")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2114072427]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=348592923]
 shape = SubResource("RectangleShape2D_fiqgd")
@@ -527,19 +528,27 @@ zoom = Vector2(3, 3)
 [node name="RayCastUp" type="RayCast2D" parent="Raycast" unique_id=585272055]
 position = Vector2(0, -16)
 target_position = Vector2(0, -16)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="RayCastDown" type="RayCast2D" parent="Raycast" unique_id=55228961]
 position = Vector2(0, 16)
 target_position = Vector2(0, 16)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="Raycast" unique_id=1342644902]
 position = Vector2(-16, 0)
 target_position = Vector2(-16, 0)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="RayCastRight" type="RayCast2D" parent="Raycast" unique_id=492807811]
 position = Vector2(16, 0)
 target_position = Vector2(16, 0)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
