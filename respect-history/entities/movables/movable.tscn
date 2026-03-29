@@ -8,6 +8,10 @@ size = Vector2(16, 16)
 
 [node name="Movable" type="Node2D" unique_id=260775831 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_nsaja")
+wall_layer = 8
+entity_layer = 4
+destroyable_layer = 2
+player_layer = 1
 slide_delay = 1.0
 sprite = NodePath("Area2D/Sprite")
 slide_drift = 16.0
@@ -22,113 +26,3 @@ shape = SubResource("RectangleShape2D_nsaja")
 [node name="Sprite" type="Sprite2D" parent="Area2D" unique_id=1008149683]
 texture_filter = 1
 texture = ExtResource("2_47tb1")
-
-[node name="RaycastWalls" type="Node2D" parent="." unique_id=805239818]
-
-[node name="WallRight" type="RayCast2D" parent="RaycastWalls" unique_id=943514157]
-target_position = Vector2(16, 0)
-collision_mask = 8
-hit_from_inside = true
-
-[node name="WallLeft" type="RayCast2D" parent="RaycastWalls" unique_id=379898859]
-target_position = Vector2(-16, 0)
-collision_mask = 8
-hit_from_inside = true
-
-[node name="WallDown" type="RayCast2D" parent="RaycastWalls" unique_id=267845208]
-target_position = Vector2(0, 16)
-collision_mask = 8
-hit_from_inside = true
-
-[node name="WallDownLeft" type="RayCast2D" parent="RaycastWalls" unique_id=1556222806]
-target_position = Vector2(-17, 16)
-collision_mask = 8
-hit_from_inside = true
-
-[node name="WallDownRight" type="RayCast2D" parent="RaycastWalls" unique_id=1328420430]
-target_position = Vector2(17, 16)
-collision_mask = 8
-hit_from_inside = true
-
-[node name="RaycastEntities" type="Node2D" parent="." unique_id=786502223]
-
-[node name="EntityRight" type="RayCast2D" parent="RaycastEntities" unique_id=449549491]
-position = Vector2(16, 0)
-target_position = Vector2(8, 0)
-collision_mask = 6
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="EntityLeft" type="RayCast2D" parent="RaycastEntities" unique_id=1416770232]
-position = Vector2(-16, 0)
-target_position = Vector2(-8, 0)
-collision_mask = 6
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="EntityDown" type="RayCast2D" parent="RaycastEntities" unique_id=1575262379]
-position = Vector2(0, 16)
-target_position = Vector2(0, 8)
-collision_mask = 4
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="DestroyableDown" type="RayCast2D" parent="RaycastEntities" unique_id=1673923372]
-position = Vector2(0, 16)
-target_position = Vector2(0, 8)
-collision_mask = 2
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="EntityDownLeft" type="RayCast2D" parent="RaycastEntities" unique_id=1630018341]
-position = Vector2(-32, 16)
-target_position = Vector2(0, 16)
-collision_mask = 6
-hit_from_inside = true
-collide_with_areas = true
-
-[node name="EntityDownRight" type="RayCast2D" parent="RaycastEntities" unique_id=1713748892]
-position = Vector2(32, 16)
-target_position = Vector2(0, 16)
-collision_mask = 6
-hit_from_inside = true
-collide_with_areas = true
-
-[node name="RaycastPlayerKill" type="Node2D" parent="." unique_id=363902291]
-
-[node name="PlayerRight" type="RayCast2D" parent="RaycastPlayerKill" unique_id=802162128]
-position = Vector2(16, 0)
-target_position = Vector2(8, 0)
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="PlayerLeft" type="RayCast2D" parent="RaycastPlayerKill" unique_id=1755845322]
-position = Vector2(-16, 0)
-target_position = Vector2(-8, 0)
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="PlayerDown" type="RayCast2D" parent="RaycastPlayerKill" unique_id=527264930]
-position = Vector2(0, 16)
-target_position = Vector2(0, 8)
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="PlayerDownLeft" type="RayCast2D" parent="RaycastPlayerKill" unique_id=376181444]
-position = Vector2(-32, 16)
-target_position = Vector2(0, 16)
-hit_from_inside = true
-collide_with_areas = true
-
-[node name="PlayerDownRight" type="RayCast2D" parent="RaycastPlayerKill" unique_id=484016237]
-position = Vector2(32, 16)
-target_position = Vector2(0, 16)
-hit_from_inside = true
-collide_with_areas = true

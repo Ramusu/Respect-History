@@ -1,23 +1,11 @@
 extends Node2D
 
-@onready var wall_down: RayCast2D = $RaycastWalls/WallDown
-@onready var wall_left: RayCast2D = $RaycastWalls/WallLeft
-@onready var wall_right: RayCast2D = $RaycastWalls/WallRight
+@export_flags_2d_physics var wall_layer: int
+@export_flags_2d_physics var entity_layer: int
+@export_flags_2d_physics var destroyable_layer: int
+@export_flags_2d_physics var player_layer: int
 
-@onready var wall_down_left: RayCast2D = $RaycastWalls/WallDownLeft
-@onready var wall_down_right: RayCast2D = $RaycastWalls/WallDownRight
-
-@onready var entity_down: RayCast2D = $RaycastEntities/EntityDown
-@onready var entity_left: RayCast2D = $RaycastEntities/EntityLeft
-@onready var entity_right: RayCast2D = $RaycastEntities/EntityRight
-
-@onready var entity_down_left: RayCast2D = $RaycastEntities/EntityDownLeft
-@onready var entity_down_right: RayCast2D = $RaycastEntities/EntityDownRight
-@onready var destroyable_down: RayCast2D = $RaycastEntities/DestroyableDown
-
-@onready var player_down: RayCast2D = $RaycastPlayerKill/PlayerDown
-@onready var player_left: RayCast2D = $RaycastPlayerKill/PlayerLeft
-@onready var player_right: RayCast2D = $RaycastPlayerKill/PlayerRight
+var _exclude_rids: Array[RID] = []
 
 @export var fall_delay: float = 0.1
 @export var slide_delay: float = 0.5 
@@ -28,9 +16,10 @@ var falling: bool = false
 var player_crushed: bool = false
 
 @export var push_tiles_per_second: float = 2.0
+@export var fall_tiles_per_second: float = 4.0 
+
 var is_pushed: bool = false
 var target_position: Vector2
-
 var pending_slide_dir: int = 0
 
 @export_group("Visuals")
@@ -44,48 +33,70 @@ var push_speed: float:
 	get:
 		return Global.TILE_SIZE * push_tiles_per_second
 
+var fall_speed: float:
+	get:
+		return Global.TILE_SIZE * fall_tiles_per_second
+
 func _ready() -> void:
 	target_position = global_position
 	if sprite:
 		base_sprite_pos = sprite.position
+		
+	_get_all_collision_rids(self)
+
+func _get_all_collision_rids(node: Node) -> void:
+	for child in node.get_children():
+		if child is CollisionObject2D:
+			_exclude_rids.append(child.get_rid())
+		_get_all_collision_rids(child)
 
 func _physics_process(delta: float) -> void:
 	if is_pushed:
-		move_to_target(delta)
+		global_position = global_position.move_toward(target_position, push_speed * delta)
+		if global_position.distance_to(target_position) < 1:
+			global_position = target_position
+			is_pushed = false
 		return 
+		
+	if falling:
+		global_position = global_position.move_toward(target_position, fall_speed * delta)
+		
+		if global_position.distance_to(target_position) < 1:
+			global_position = target_position
+			check_player_crush(Vector2.ZERO) 
+			
+			var next_cell_solid: bool = check_cell(Vector2.DOWN, wall_layer) or check_cell(Vector2.DOWN, entity_layer) or check_cell(Vector2.DOWN, destroyable_layer)
+			
+			if not next_cell_solid:
+				target_position = global_position + (Vector2.DOWN * Global.TILE_SIZE)
+			else:
+				falling = false
+		return
+
+	var has_wall_down: bool = check_cell(Vector2.DOWN, wall_layer)
+	var has_entity_down: bool = check_cell(Vector2.DOWN, entity_layer)
+	var has_destroyable_down: bool = check_cell(Vector2.DOWN, destroyable_layer)
 	
-	wall_down.force_raycast_update()
-	entity_down.force_raycast_update()
-	destroyable_down.force_raycast_update()
-	player_down.force_raycast_update()
-	
-	var solid_ground_below: bool = wall_down.is_colliding() or entity_down.is_colliding() or destroyable_down.is_colliding()
-	var player_below: bool = player_down.is_colliding()
+	var solid_ground_below: bool = has_wall_down or has_entity_down or has_destroyable_down
 	
 	if solid_ground_below:
-		falling = false
 		current_fall_time = 0.0 
 		
-		if entity_down.is_colliding() and not destroyable_down.is_colliding():
-			wall_left.force_raycast_update()
-			entity_left.force_raycast_update()
-			wall_down_left.force_raycast_update()
-			entity_down_left.force_raycast_update()
-			player_left.force_raycast_update()
+		if has_entity_down and not has_destroyable_down:
+			var blocked_left: bool = (
+				check_cell(Vector2.LEFT, wall_layer | entity_layer | player_layer | destroyable_layer) or 
+				check_cell(Vector2(-1, 1), wall_layer | entity_layer | destroyable_layer) 
+			)
 			
-			wall_right.force_raycast_update()
-			entity_right.force_raycast_update()
-			wall_down_right.force_raycast_update()
-			entity_down_right.force_raycast_update()
-			player_right.force_raycast_update()
-			
-			var can_slide_left: bool = not (wall_left.is_colliding() or entity_left.is_colliding() or player_left.is_colliding() or wall_down_left.is_colliding() or entity_down_left.is_colliding())
-			var can_slide_right: bool = not (wall_right.is_colliding() or entity_right.is_colliding() or player_right.is_colliding() or wall_down_right.is_colliding() or entity_down_right.is_colliding())
+			var blocked_right: bool = (
+				check_cell(Vector2.RIGHT, wall_layer | entity_layer | player_layer | destroyable_layer) or 
+				check_cell(Vector2(1, 1), wall_layer | entity_layer | destroyable_layer) 
+			)
 			
 			var desired_slide_dir: int = 0
-			if can_slide_left:
+			if not blocked_left:
 				desired_slide_dir = -1
-			elif can_slide_right:
+			elif not blocked_right:
 				desired_slide_dir = 1
 				
 			if desired_slide_dir != 0:
@@ -105,18 +116,20 @@ func _physics_process(delta: float) -> void:
 			pending_slide_dir = 0
 			current_slide_time = 0.0
 			
-	elif not falling:
+	else:
 		pending_slide_dir = 0
 		current_slide_time = 0.0 
 		
-		var target_delay: float = fall_delay * 5 if player_below else fall_delay
+		var has_player_down: bool = check_cell(Vector2.DOWN, player_layer)
+		var target_delay: float = fall_delay * 5 if has_player_down else fall_delay
 		
 		current_fall_time += delta
 		
 		if current_fall_time >= target_delay:
+			target_position = global_position + (Vector2.DOWN * Global.TILE_SIZE)
 			falling = true
 			current_fall_time = 0.0
-	
+
 	if sprite:
 		if pending_slide_dir != 0 and current_slide_time > 0.0:
 			var t: float = current_slide_time / slide_delay 
@@ -127,50 +140,55 @@ func _physics_process(delta: float) -> void:
 		else:
 			sprite.position.x = base_sprite_pos.x 
 
-	if falling:
-		fall()
-		check_player_crush(player_down)
+func check_cell(dir_offset: Vector2, mask: int) -> bool:
+	if mask == 0:
+		return false
+		
+	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	
+	query.position = global_position + (dir_offset * Global.TILE_SIZE) + (dir_offset * 1.0)
+	query.collision_mask = mask
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	query.exclude = _exclude_rids 
+	
+	var results: Array[Dictionary] = space_state.intersect_point(query)
+	return results.size() > 0
 
-func fall() -> void:
-	global_position.y += 2
-
-func check_player_crush(ray: RayCast2D) -> void:
+func check_player_crush(dir_offset: Vector2) -> void:
 	if player_crushed:
 		return
 	
-	ray.force_raycast_update()
-	if ray.is_colliding():
-		var body: Area2D = ray.get_collider()
+	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = global_position + (dir_offset * Global.TILE_SIZE) + (dir_offset * 1.0)
+	query.collision_mask = player_layer
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	query.exclude = _exclude_rids
+	
+	var results: Array[Dictionary] = space_state.intersect_point(query)
+	
+	if results.size() > 0:
+		var body: Node2D = results[0].collider
 		if body:
-			var player: Node2D = body.get_parent()
-			if player and player.is_in_group("player"):
+			var player: Node2D = body.get_parent() if body is Area2D else body
+			if player and player.is_in_group("player") and player.has_method("die"):
 				player.die()
 				player_crushed = true
-
-func move_to_target(delta: float) -> void:
-	global_position = global_position.move_toward(target_position, push_speed * delta)
-	
-	if global_position.distance_to(target_position) < 1:
-		global_position = target_position
-		is_pushed = false
 
 func push(dir: int) -> bool:
 	if falling or is_pushed:
 		return false
 		
-	var is_blocked: bool = false
+	var dir_vector: Vector2 = Vector2.RIGHT if dir > 0 else Vector2.LEFT
+	var mask_to_check: int = wall_layer | entity_layer | destroyable_layer
 	
-	if dir > 0:
-		wall_right.force_raycast_update()
-		entity_right.force_raycast_update()
-		is_blocked = wall_right.is_colliding() or entity_right.is_colliding()
-	elif dir < 0:
-		wall_left.force_raycast_update()
-		entity_left.force_raycast_update()
-		is_blocked = wall_left.is_colliding() or entity_left.is_colliding()
+	var is_blocked: bool = check_cell(dir_vector, mask_to_check)
 		
 	if not is_blocked:
-		target_position = global_position + Vector2(dir * Global.TILE_SIZE, 0)
+		target_position = global_position + (dir_vector * Global.TILE_SIZE)
 		is_pushed = true 
 		return true
 		
@@ -182,5 +200,6 @@ func start_slide(dir: int) -> void:
 	if sprite:
 		sprite.position.x = base_sprite_pos.x
 	
+	target_position = global_position + (Vector2.DOWN * Global.TILE_SIZE)
 	falling = true
 	current_fall_time = 0.0

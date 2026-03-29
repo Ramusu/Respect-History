@@ -499,6 +499,10 @@ position = Vector2(-336, -80)
 texture_filter = 1
 position = Vector2(-304, -80)
 
+[node name="Destroyable17" parent="Destroyables" unique_id=69656742 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-272, -112)
+
 [node name="Destroyable9" parent="Destroyables" unique_id=1025783747 instance=ExtResource("7_haio7")]
 texture_filter = 1
 position = Vector2(-48, 48)
@@ -546,3 +550,6 @@ position = Vector2(-336, -112)
 
 [node name="Movable5" parent="." unique_id=1847818417 instance=ExtResource("8_yqky3")]
 position = Vector2(-304, -112)
+
+[node name="Movable8" parent="." unique_id=1947867024 instance=ExtResource("8_yqky3")]
+position = Vector2(-304, -144)
