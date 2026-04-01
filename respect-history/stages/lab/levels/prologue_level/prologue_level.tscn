@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dly5tuijkjb8l" path="res://stages/lab/visuals/walkable.png" id="4_17k2i"]
 [ext_resource type="Texture2D" uid="uid://cs3yn0djfi4nc" path="res://stages/lab/visuals/platform1.png" id="5_alyxl"]
 [ext_resource type="PackedScene" uid="uid://cq3l6rui1b8mf" path="res://entities/characters/dr_chronos/dr_chronos.tscn" id="6_ncg8f"]
+[ext_resource type="PackedScene" uid="uid://dhj56cq4kmpa8" path="res://entities/destroyables/destroyable.tscn" id="7_haio7"]
+[ext_resource type="PackedScene" uid="uid://dovajluv06huy" path="res://entities/movables/movable.tscn" id="8_yqky3"]
 
 [sub_resource type="Resource" id="Resource_x4x4f"]
 script = ExtResource("2_rpv4c")
@@ -428,7 +430,8 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_mn58c"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 0
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
@@ -461,3 +464,85 @@ physics_quadrant_size = 32
 
 [node name="Dr_ Chronos" parent="." unique_id=643783559 instance=ExtResource("6_ncg8f")]
 position = Vector2(-496, -176)
+
+[node name="Destroyables" type="Node2D" parent="." unique_id=1825191598]
+
+[node name="Destroyable2" parent="Destroyables" unique_id=310286838 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-464, -112)
+
+[node name="Destroyable16" parent="Destroyables" unique_id=473921713 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-464, -144)
+
+[node name="Destroyable3" parent="Destroyables" unique_id=1600383614 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-496, -112)
+
+[node name="Destroyable4" parent="Destroyables" unique_id=1780312373 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-528, -112)
+
+[node name="Destroyable5" parent="Destroyables" unique_id=1742470867 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-528, -80)
+
+[node name="Destroyable6" parent="Destroyables" unique_id=584715997 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-368, -80)
+
+[node name="Destroyable7" parent="Destroyables" unique_id=1185165305 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-336, -80)
+
+[node name="Destroyable8" parent="Destroyables" unique_id=412741711 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-304, -80)
+
+[node name="Destroyable9" parent="Destroyables" unique_id=1025783747 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-48, 48)
+
+[node name="Destroyable10" parent="Destroyables" unique_id=1391269463 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(-16, 48)
+
+[node name="Destroyable11" parent="Destroyables" unique_id=1715881806 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(240, 48)
+
+[node name="Destroyable12" parent="Destroyables" unique_id=939806398 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(272, 48)
+
+[node name="Destroyable13" parent="Destroyables" unique_id=1181561161 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(304, 48)
+
+[node name="Destroyable14" parent="Destroyables" unique_id=246712452 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(336, 48)
+
+[node name="Destroyable15" parent="Destroyables" unique_id=2132461492 instance=ExtResource("7_haio7")]
+texture_filter = 1
+position = Vector2(368, 48)
+
+[node name="Movables" type="Node2D" parent="." unique_id=692844218]
+
+[node name="Movable" parent="." unique_id=260775831 instance=ExtResource("8_yqky3")]
+position = Vector2(-48, 16)
+
+[node name="Movable3" parent="." unique_id=1844980500 instance=ExtResource("8_yqky3")]
+position = Vector2(-16, 16)
+
+[node name="Movable6" parent="." unique_id=1064704538 instance=ExtResource("8_yqky3")]
+position = Vector2(144, -16)
+
+[node name="Movable2" parent="." unique_id=295458854 instance=ExtResource("8_yqky3")]
+position = Vector2(-368, -112)
+
+[node name="Movable4" parent="." unique_id=1766239228 instance=ExtResource("8_yqky3")]
+position = Vector2(-336, -112)
+
+[node name="Movable5" parent="." unique_id=1847818417 instance=ExtResource("8_yqky3")]
+position = Vector2(-304, -112)

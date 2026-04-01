@@ -15,9 +15,18 @@ run/main_scene="uid://d1ovq7dk4y6n0"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*uid://b5qld17u1x6f6"
+Signals="*uid://cr3nea3yqpdl1"
+
 [dotnet]
 
 project/assembly_name="Respect History"
+
+[global_group]
+
+player=""
 
 [input]
 
@@ -42,8 +51,16 @@ move_down={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Destroyables"
+2d_physics/layer_3="Movables"
+2d_physics/layer_4="Walls"
+
 [physics]
 
+2d/run_on_separate_thread=true
 3d/physics_engine="Jolt Physics"
 
 [rendering]

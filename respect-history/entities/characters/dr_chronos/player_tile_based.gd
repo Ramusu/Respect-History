@@ -1,18 +1,22 @@
 extends Node2D
 
 signal moving(dir: Vector2, is_moving: bool)
+signal dead
 
 @onready var ray_cast_up: RayCast2D = $Raycast/RayCastUp
 @onready var ray_cast_down: RayCast2D = $Raycast/RayCastDown
 @onready var ray_cast_left: RayCast2D = $Raycast/RayCastLeft
 @onready var ray_cast_right: RayCast2D = $Raycast/RayCastRight
 
-@export var tiles_per_second: int = 4
-const tile_size: int = 32
+@export var tiles_per_second: float = 4.0
+@export var push_tiles_per_second: float = 2.0
+
+var is_pushing: bool = false
 
 var move_speed: float:
 	get:
-		return tile_size * tiles_per_second
+		var current_tps: float = push_tiles_per_second if is_pushing else tiles_per_second
+		return Global.TILE_SIZE * current_tps
 
 var target_position: Vector2
 var is_moving: bool = false
@@ -21,10 +25,13 @@ var current_direction: Vector2 = Vector2.ZERO
 var last_emitted_dir: Vector2 = Vector2.ZERO
 var last_emitted_moving: bool = false
 
+var is_dead: bool = false
+
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
-func _ready():
+func _ready() -> void:
+	add_to_group('player')
 	target_position = global_position
 
 func _physics_process(delta: float) -> void:
@@ -35,8 +42,8 @@ func _physics_process(delta: float) -> void:
 	handle_input()
 	move_to_target(delta)
 
-func handle_input():
-	if is_moving:
+func handle_input() -> void:
+	if is_moving or is_dead:
 		return
 	
 	var direction: Vector2 = Vector2.ZERO
@@ -67,18 +74,38 @@ func move(direction: Vector2) -> void:
 		return
 
 	var can_move: bool = false
+	var collider: Object = null
+	
 	match direction:
 		Vector2.UP:
+			ray_cast_up.force_raycast_update()
 			can_move = not ray_cast_up.is_colliding()
+			if not can_move: collider = ray_cast_up.get_collider()
 		Vector2.DOWN:
+			ray_cast_down.force_raycast_update()
 			can_move = not ray_cast_down.is_colliding()
+			if not can_move: collider = ray_cast_down.get_collider()
 		Vector2.LEFT:
+			ray_cast_left.force_raycast_update()
 			can_move = not ray_cast_left.is_colliding()
+			if not can_move: collider = ray_cast_left.get_collider()
 		Vector2.RIGHT:
+			ray_cast_right.force_raycast_update()
 			can_move = not ray_cast_right.is_colliding()
+			if not can_move: collider = ray_cast_right.get_collider()
+	
+	if not can_move and collider and (direction == Vector2.LEFT or direction == Vector2.RIGHT):
+		var target_node: Object = collider
+		if not target_node.has_method("push") and target_node.get_parent() and target_node.get_parent().has_method("push"):
+			target_node = target_node.get_parent()
+			
+		if target_node.has_method("push"):
+			if target_node.push(int(direction.x)):
+				can_move = true
+				is_pushing = true 
 	
 	if can_move:
-		target_position = global_position + direction * tile_size
+		target_position = global_position + direction * Global.TILE_SIZE
 		is_moving = true
 		update_moving_signal(current_direction, true)
 	else:
@@ -93,10 +120,15 @@ func move_to_target(delta: float) -> void:
 	if global_position.distance_to(target_position) < 1:
 		global_position = target_position
 		is_moving = false
-		handle_input()
+		is_pushing = false
 
 func update_moving_signal(dir: Vector2, state: bool) -> void:
 	if dir != last_emitted_dir or state != last_emitted_moving:
 		moving.emit(dir, state)
 		last_emitted_dir = dir
 		last_emitted_moving = state
+
+func die() -> void:
+	is_dead = true
+	print("dead")
+	dead.emit()

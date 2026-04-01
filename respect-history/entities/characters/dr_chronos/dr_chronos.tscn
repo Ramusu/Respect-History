@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bnxsdfito8mhw" path="res://entities/characters/dr_chronos/player_tile_based.gd" id="1_fiqgd"]
 [ext_resource type="Texture2D" uid="uid://kftmdsnye4p1" path="res://entities/characters/dr_chronos/visuals/idle/idle_down.png" id="2_28n2w"]
+[ext_resource type="Texture2D" uid="uid://dpkiccfx25dju" path="res://entities/characters/dr_chronos/visuals/Skull 0011.png" id="2_cdvi1"]
 [ext_resource type="Texture2D" uid="uid://dbl253oqyt7qs" path="res://entities/characters/dr_chronos/visuals/idle/idle_left.png" id="3_vwx8q"]
 [ext_resource type="Texture2D" uid="uid://cc6xyga0ar5aw" path="res://entities/characters/dr_chronos/visuals/idle/idle_right.png" id="4_7dnvc"]
 [ext_resource type="Texture2D" uid="uid://ge33itupy0xj" path="res://entities/characters/dr_chronos/visuals/idle/idle_up.png" id="5_3l8kd"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://does70yn5j3q3" path="res://entities/characters/dr_chronos/visuals/run/run_right.png" id="8_ujd1k"]
 [ext_resource type="Texture2D" uid="uid://bwky8koefs8q" path="res://entities/characters/dr_chronos/visuals/run/run_up.png" id="9_mc7uk"]
 [ext_resource type="Script" uid="uid://bleooxhnncxbs" path="res://entities/characters/dr_chronos/visuals/animated_sprite_2d.gd" id="10_roddx"]
+[ext_resource type="Script" uid="uid://nda20mu0g782" path="res://entities/characters/dr_chronos/camera.gd" id="12_a2sdp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fiqgd"]
 size = Vector2(16, 16)
@@ -274,6 +276,14 @@ region = Rect2(672, 0, 96, 80)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_cdvi1")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dig5o")
 }, {
 "duration": 1.0,
@@ -505,10 +515,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="CharacterBody2D" type="Node2D" unique_id=1430571325]
+[node name="DrChronos" type="Node2D" unique_id=1430571325 groups=["player"]]
 script = ExtResource("1_fiqgd")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2114072427]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=348592923]
 shape = SubResource("RectangleShape2D_fiqgd")
@@ -521,25 +532,34 @@ script = ExtResource("10_roddx")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
 zoom = Vector2(3, 3)
+script = ExtResource("12_a2sdp")
 
 [node name="Raycast" type="Node2D" parent="." unique_id=729798008]
 
 [node name="RayCastUp" type="RayCast2D" parent="Raycast" unique_id=585272055]
 position = Vector2(0, -16)
 target_position = Vector2(0, -16)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="RayCastDown" type="RayCast2D" parent="Raycast" unique_id=55228961]
 position = Vector2(0, 16)
 target_position = Vector2(0, 16)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="Raycast" unique_id=1342644902]
 position = Vector2(-16, 0)
 target_position = Vector2(-16, 0)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
 
 [node name="RayCastRight" type="RayCast2D" parent="Raycast" unique_id=492807811]
 position = Vector2(16, 0)
 target_position = Vector2(16, 0)
+collision_mask = 12
 hit_from_inside = true
+collide_with_areas = true
