@@ -461,13 +461,14 @@ rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=341606588 node_paths=PackedStringArray("target")]
-position = Vector2(-630, -181)
+position = Vector2(-495.945, -176)
 zoom = Vector2(3, 3)
 script = ExtResource("6_haio7")
 target = NodePath("../Dr_ Chronos")
 
 [node name="Dr_ Chronos" parent="." unique_id=643783559 node_paths=PackedStringArray("target_camera") instance=ExtResource("6_ncg8f")]
-position = Vector2(-496, -176)
+position = Vector2(-720, -176)
 target_camera = NodePath("../Camera2D")
+intro_delay = 1.0
 
 [connection signal="intro_complete" from="Dr_ Chronos" to="Camera2D" method="on_target_intro_complete"]

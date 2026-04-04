@@ -27,41 +27,45 @@ var last_emitted_moving: bool = false
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
-var intro_position: Vector2
-var intro_complete_flag: bool = true # false
+var intro_position: Vector2 # end position for player intro, currently tied to camera
+var intro_complete_flag: bool = false # a flag primarily needed to unlock controls
+var intro_started: bool = false # a flag needed to make a delay before intro starts
+@export var intro_delay: float = 1.5
 
 func _ready():
 	target_position = global_position
-	intro_position = global_position - Vector2(64, 0) # WARNING tinker with this
+	intro_position = target_camera.global_position
+	
+	await get_tree().create_timer(intro_delay).timeout
+	intro_started = true
 
 func _physics_process(delta: float) -> void:
 	if turn_delay_timer > 0.0:
 		turn_delay_timer -= delta
 		return
 	
-	if not intro_complete_flag:
+	if not intro_complete_flag and intro_started:
 		handle_intro_movement(delta)
 	else:
 		handle_input()
 		move_to_target(delta)
 
-func handle_intro_movement(delta: float): # WARNING this and bottom func can be merged?
-	if not is_moving and global_position.distance_to(intro_position) > 1:
-			move_to_intro_target(delta)
-
-func move_to_intro_target(delta: float):
+func handle_intro_movement(delta: float):
+	if global_position.distance_to(intro_position) <= 1:
+		return
+	
 	target_position = intro_position
 	is_moving = true
+	current_direction = Vector2.RIGHT
 	update_moving_signal(current_direction, true)
 	
-	# WARNING fix movement 
-	global_position = global_position.move_toward(target_position, move_speed*delta)
+	global_position = global_position.move_toward(target_position, move_speed * delta)
 	
 	if global_position.distance_to(target_position) < 1:
 		global_position = target_position
 		is_moving = false
 		intro_complete_flag = true
-		emit_signal("intro_complete")
+		intro_complete.emit()
 		handle_input()
 
 func handle_input():
