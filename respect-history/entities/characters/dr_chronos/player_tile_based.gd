@@ -1,17 +1,28 @@
 extends Node2D
 
 signal moving(dir: Vector2, is_moving: bool)
+<<<<<<< CameraModifications
+signal intro_complete
+=======
 signal dead
+>>>>>>> main
 
 @onready var ray_cast_up: RayCast2D = $Raycast/RayCastUp
 @onready var ray_cast_down: RayCast2D = $Raycast/RayCastDown
 @onready var ray_cast_left: RayCast2D = $Raycast/RayCastLeft
 @onready var ray_cast_right: RayCast2D = $Raycast/RayCastRight
 
+<<<<<<< CameraModifications
+@export var target_camera: Camera2D
+
+@export var tiles_per_second: int = 4
+const tile_size: int = 32
+=======
 @export var tiles_per_second: float = 4.0
 @export var push_tiles_per_second: float = 2.0
 
 var is_pushing: bool = false
+>>>>>>> main
 
 var move_speed: float:
 	get:
@@ -30,17 +41,51 @@ var is_dead: bool = false
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
+<<<<<<< CameraModifications
+var intro_position: Vector2 # end position for player intro, currently tied to camera
+var intro_complete_flag: bool = false # a flag primarily needed to unlock controls
+var intro_started: bool = false # a flag needed to make a delay before intro starts
+@export var intro_delay: float = 1.5
+
+func _ready():
+=======
 func _ready() -> void:
 	add_to_group('player')
+>>>>>>> main
 	target_position = global_position
+	intro_position = target_camera.global_position
+	
+	await get_tree().create_timer(intro_delay).timeout
+	intro_started = true
 
 func _physics_process(delta: float) -> void:
 	if turn_delay_timer > 0.0:
 		turn_delay_timer -= delta
 		return
 	
-	handle_input()
-	move_to_target(delta)
+	if not intro_complete_flag and intro_started:
+		handle_intro_movement(delta)
+	else:
+		handle_input()
+		move_to_target(delta)
+
+func handle_intro_movement(delta: float):
+	if global_position.distance_to(intro_position) <= 1:
+		return
+	
+	target_position = intro_position
+	is_moving = true
+	current_direction = Vector2.RIGHT
+	update_moving_signal(current_direction, true)
+	
+	global_position = global_position.move_toward(target_position, move_speed * delta)
+	
+	if global_position.distance_to(target_position) < 1:
+		global_position = target_position
+		is_moving = false
+		intro_complete_flag = true
+		intro_complete.emit()
+		handle_input()
 
 func handle_input() -> void:
 	if is_moving or is_dead:

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://drkoi8p4seh8x" path="res://stages/lab/visuals/solid.png" id="3_hrvk6"]
 [ext_resource type="Texture2D" uid="uid://dly5tuijkjb8l" path="res://stages/lab/visuals/walkable.png" id="4_17k2i"]
 [ext_resource type="Texture2D" uid="uid://cs3yn0djfi4nc" path="res://stages/lab/visuals/platform1.png" id="5_alyxl"]
+[ext_resource type="Script" uid="uid://nnwuk18abx1n" path="res://stages/camera_control.gd" id="6_haio7"]
 [ext_resource type="PackedScene" uid="uid://cq3l6rui1b8mf" path="res://entities/characters/dr_chronos/dr_chronos.tscn" id="6_ncg8f"]
 [ext_resource type="PackedScene" uid="uid://dhj56cq4kmpa8" path="res://entities/destroyables/destroyable.tscn" id="7_haio7"]
 [ext_resource type="PackedScene" uid="uid://dovajluv06huy" path="res://entities/movables/movable.tscn" id="8_yqky3"]
@@ -462,6 +463,20 @@ tile_set = SubResource("TileSet_mn58c")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
+<<<<<<< CameraModifications
+[node name="Camera2D" type="Camera2D" parent="." unique_id=341606588 node_paths=PackedStringArray("target")]
+position = Vector2(-495.945, -176)
+zoom = Vector2(3, 3)
+script = ExtResource("6_haio7")
+target = NodePath("../Dr_ Chronos")
+
+[node name="Dr_ Chronos" parent="." unique_id=643783559 node_paths=PackedStringArray("target_camera") instance=ExtResource("6_ncg8f")]
+position = Vector2(-720, -176)
+target_camera = NodePath("../Camera2D")
+intro_delay = 1.0
+
+[connection signal="intro_complete" from="Dr_ Chronos" to="Camera2D" method="on_target_intro_complete"]
+=======
 [node name="Dr_ Chronos" parent="." unique_id=643783559 instance=ExtResource("6_ncg8f")]
 position = Vector2(-496, -176)
 
@@ -546,3 +561,4 @@ position = Vector2(-336, -112)
 
 [node name="Movable5" parent="." unique_id=1847818417 instance=ExtResource("8_yqky3")]
 position = Vector2(-304, -112)
+>>>>>>> main
