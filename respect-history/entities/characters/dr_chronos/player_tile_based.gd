@@ -1,21 +1,33 @@
 extends Node2D
 
 signal moving(dir: Vector2, is_moving: bool)
+<<<<<<< CameraModifications
 signal intro_complete
+=======
+signal dead
+>>>>>>> main
 
 @onready var ray_cast_up: RayCast2D = $Raycast/RayCastUp
 @onready var ray_cast_down: RayCast2D = $Raycast/RayCastDown
 @onready var ray_cast_left: RayCast2D = $Raycast/RayCastLeft
 @onready var ray_cast_right: RayCast2D = $Raycast/RayCastRight
 
+<<<<<<< CameraModifications
 @export var target_camera: Camera2D
 
 @export var tiles_per_second: int = 4
 const tile_size: int = 32
+=======
+@export var tiles_per_second: float = 4.0
+@export var push_tiles_per_second: float = 2.0
+
+var is_pushing: bool = false
+>>>>>>> main
 
 var move_speed: float:
 	get:
-		return tile_size * tiles_per_second
+		var current_tps: float = push_tiles_per_second if is_pushing else tiles_per_second
+		return Global.TILE_SIZE * current_tps
 
 var target_position: Vector2
 var is_moving: bool = false
@@ -24,15 +36,22 @@ var current_direction: Vector2 = Vector2.ZERO
 var last_emitted_dir: Vector2 = Vector2.ZERO
 var last_emitted_moving: bool = false
 
+var is_dead: bool = false
+
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
+<<<<<<< CameraModifications
 var intro_position: Vector2 # end position for player intro, currently tied to camera
 var intro_complete_flag: bool = false # a flag primarily needed to unlock controls
 var intro_started: bool = false # a flag needed to make a delay before intro starts
 @export var intro_delay: float = 1.5
 
 func _ready():
+=======
+func _ready() -> void:
+	add_to_group('player')
+>>>>>>> main
 	target_position = global_position
 	intro_position = target_camera.global_position
 	
@@ -68,8 +87,8 @@ func handle_intro_movement(delta: float):
 		intro_complete.emit()
 		handle_input()
 
-func handle_input():
-	if is_moving:
+func handle_input() -> void:
+	if is_moving or is_dead:
 		return
 	
 	var direction: Vector2 = Vector2.ZERO
@@ -100,18 +119,38 @@ func move(direction: Vector2) -> void:
 		return
 
 	var can_move: bool = false
+	var collider: Object = null
+	
 	match direction:
 		Vector2.UP:
+			ray_cast_up.force_raycast_update()
 			can_move = not ray_cast_up.is_colliding()
+			if not can_move: collider = ray_cast_up.get_collider()
 		Vector2.DOWN:
+			ray_cast_down.force_raycast_update()
 			can_move = not ray_cast_down.is_colliding()
+			if not can_move: collider = ray_cast_down.get_collider()
 		Vector2.LEFT:
+			ray_cast_left.force_raycast_update()
 			can_move = not ray_cast_left.is_colliding()
+			if not can_move: collider = ray_cast_left.get_collider()
 		Vector2.RIGHT:
+			ray_cast_right.force_raycast_update()
 			can_move = not ray_cast_right.is_colliding()
+			if not can_move: collider = ray_cast_right.get_collider()
+	
+	if not can_move and collider and (direction == Vector2.LEFT or direction == Vector2.RIGHT):
+		var target_node: Object = collider
+		if not target_node.has_method("push") and target_node.get_parent() and target_node.get_parent().has_method("push"):
+			target_node = target_node.get_parent()
+			
+		if target_node.has_method("push"):
+			if target_node.push(int(direction.x)):
+				can_move = true
+				is_pushing = true 
 	
 	if can_move:
-		target_position = global_position + direction * tile_size
+		target_position = global_position + direction * Global.TILE_SIZE
 		is_moving = true
 		update_moving_signal(current_direction, true)
 	else:
@@ -126,10 +165,15 @@ func move_to_target(delta: float) -> void:
 	if global_position.distance_to(target_position) < 1:
 		global_position = target_position
 		is_moving = false
-		handle_input()
+		is_pushing = false
 
 func update_moving_signal(dir: Vector2, state: bool) -> void:
 	if dir != last_emitted_dir or state != last_emitted_moving:
 		moving.emit(dir, state)
 		last_emitted_dir = dir
 		last_emitted_moving = state
+
+func die() -> void:
+	is_dead = true
+	print("dead")
+	dead.emit()
