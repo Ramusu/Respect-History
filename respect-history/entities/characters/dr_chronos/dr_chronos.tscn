@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://does70yn5j3q3" path="res://entities/characters/dr_chronos/visuals/run/run_right.png" id="8_ujd1k"]
 [ext_resource type="Texture2D" uid="uid://bwky8koefs8q" path="res://entities/characters/dr_chronos/visuals/run/run_up.png" id="9_mc7uk"]
 [ext_resource type="Script" uid="uid://bleooxhnncxbs" path="res://entities/characters/dr_chronos/visuals/animated_sprite_2d.gd" id="10_roddx"]
-[ext_resource type="Script" uid="uid://nda20mu0g782" path="res://entities/characters/dr_chronos/camera.gd" id="12_a2sdp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fiqgd"]
 size = Vector2(16, 16)
@@ -529,10 +528,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gs2pr")
 animation = &"idle_right"
 script = ExtResource("10_roddx")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1367630640]
-zoom = Vector2(3, 3)
-script = ExtResource("12_a2sdp")
 
 [node name="Raycast" type="Node2D" parent="." unique_id=729798008]
 
