@@ -463,7 +463,6 @@ tile_set = SubResource("TileSet_mn58c")
 rendering_quadrant_size = 32
 physics_quadrant_size = 32
 
-<<<<<<< CameraModifications
 [node name="Camera2D" type="Camera2D" parent="." unique_id=341606588 node_paths=PackedStringArray("target")]
 position = Vector2(-495.945, -176)
 zoom = Vector2(3, 3)
@@ -474,11 +473,6 @@ target = NodePath("../Dr_ Chronos")
 position = Vector2(-720, -176)
 target_camera = NodePath("../Camera2D")
 intro_delay = 1.0
-
-[connection signal="intro_complete" from="Dr_ Chronos" to="Camera2D" method="on_target_intro_complete"]
-=======
-[node name="Dr_ Chronos" parent="." unique_id=643783559 instance=ExtResource("6_ncg8f")]
-position = Vector2(-496, -176)
 
 [node name="Destroyables" type="Node2D" parent="." unique_id=1825191598]
 
@@ -561,4 +555,5 @@ position = Vector2(-336, -112)
 
 [node name="Movable5" parent="." unique_id=1847818417 instance=ExtResource("8_yqky3")]
 position = Vector2(-304, -112)
->>>>>>> main
+
+[connection signal="intro_complete" from="Dr_ Chronos" to="Camera2D" method="on_target_intro_complete"]

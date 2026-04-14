@@ -1,28 +1,20 @@
 extends Node2D
 
 signal moving(dir: Vector2, is_moving: bool)
-<<<<<<< CameraModifications
 signal intro_complete
-=======
 signal dead
->>>>>>> main
 
 @onready var ray_cast_up: RayCast2D = $Raycast/RayCastUp
 @onready var ray_cast_down: RayCast2D = $Raycast/RayCastDown
 @onready var ray_cast_left: RayCast2D = $Raycast/RayCastLeft
 @onready var ray_cast_right: RayCast2D = $Raycast/RayCastRight
 
-<<<<<<< CameraModifications
 @export var target_camera: Camera2D
 
-@export var tiles_per_second: int = 4
-const tile_size: int = 32
-=======
 @export var tiles_per_second: float = 4.0
 @export var push_tiles_per_second: float = 2.0
 
 var is_pushing: bool = false
->>>>>>> main
 
 var move_speed: float:
 	get:
@@ -41,17 +33,14 @@ var is_dead: bool = false
 const TURN_DELAY: float = 0.05
 var turn_delay_timer: float = 0.0
 
-<<<<<<< CameraModifications
 var intro_position: Vector2 # end position for player intro, currently tied to camera
 var intro_complete_flag: bool = false # a flag primarily needed to unlock controls
 var intro_started: bool = false # a flag needed to make a delay before intro starts
 @export var intro_delay: float = 1.5
 
-func _ready():
-=======
 func _ready() -> void:
 	add_to_group('player')
->>>>>>> main
+
 	target_position = global_position
 	intro_position = target_camera.global_position
 	
